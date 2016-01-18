@@ -13,7 +13,7 @@ get_files <- function(directory,id = 1:332) {
 }
 
 # function returns a merged data-frame given a R file list as string
-get_dataframe_from_files <- function(files) {
+merged_data_frame <- function(files) {
 	# First apply read.csv, then rbind
 	# This will combine all files into one dataframe
 	myfiles = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
@@ -47,28 +47,30 @@ count_complete_cases <- function(dataframe){
 # 2  4  474
 list_complete_cases <- function(dataframe_list){
 	df <- data.frame(id = integer(0), nobs = integer(0))
-	#add a new row
-	#df = rbind(df,data.frame(id = 2, nobs = 334))
+	
+	#to add a new row
 	#df = rbind(df,data.frame(id = 8, nobs = 567))
 
+	#get complete cases for each dataframes and add them as a row in new df
 	for(i in seq_along(dataframe_list)){
-		print(count_complete_cases(dataframe_list[[i]]))
+		df = rbind(df,data.frame(id = i, nobs = count_complete_cases(dataframe_list[[i]])  ))		
 	}
-
+	
+	df
 }
 
 
-file_list 	<- get_files("~/code/r/r-experiments/specdata",30:25)
-data_frame 	<- get_dataframe_from_files(file_list)
+file_list 	<- get_files("~/code/r/r-experiments/specdata",c(2, 4, 8, 10, 12))
+data_frame 	<- merged_data_frame(file_list)
 data_frame_list <- get_dataframe_list_from_files(file_list)
 
 #things we need
-average 	<- calculate_mean(data_frame,'nitrate')
-list_complete_cases(data_frame_list) 
+average 	<- calculate_mean(data_frame,'sulfate')
+complete_cases <- list_complete_cases(data_frame_list) 
 
-#printf("Average : %f",average)
-#print("Complete Cases :")
-#print(count)
+sprintf("Average : %f",average)
+print("Complete Cases :")
+print(complete_cases)
 
 
 
