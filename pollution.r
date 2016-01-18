@@ -39,17 +39,21 @@ complete_cases_count <- function(dataframe){
 	count <- length(l[l==TRUE])
 }
 
+
 #this function finds the number of complete observations (none of the columns is NA) in the dataframe and returns the 
 #result as a new dataframe of the form:
 # 	 id nobs
 # 1  2 1041
 # 2  4  474
+list_complete_cases <- function(dataframe_list){
+	data.frame()
+}
 
 
 file_list 	<- get_files("~/code/r/r-experiments/specdata",8)
 data_frame 	<- get_dataframe_from_files(file_list)
 average 	<- calculate_mean(data_frame,'nitrate')
-complete 	<- complete_cases_count(data_frame)
+complete 	<- list_complete_cases() #complete_cases_count(list_complete_cases)
 
 sprintf("Average : %f",average)
 print("Complete Cases :")
