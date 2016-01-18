@@ -22,7 +22,7 @@ get_dataframe_from_files <- function(files) {
 # function returns a list of data-frames given a R file list as string
 get_dataframe_list_from_files <- function(files) {
 	#this will return the combined csv files as a list of dataframes
-	df_list = lapply(files, read.delim)
+	df_list = lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE))
 }
 
 #this function calculated mean for all values in the given column
@@ -32,9 +32,9 @@ calculate_mean <- function(dataframe, column){
 }
 
 #Function counts the number of complete cases for a dataframe
-complete_cases_count <- function(dataframe){
+count_complete_cases <- function(dataframe){
 	#logical vector of TRUE and FALSES to show which cases are complete
-	l <- complete.cases(data_frame)
+	l <- complete.cases(dataframe)
 	#count complete (TRUE) cases (values)
 	count <- length(l[l==TRUE])
 }
@@ -46,18 +46,29 @@ complete_cases_count <- function(dataframe){
 # 1  2 1041
 # 2  4  474
 list_complete_cases <- function(dataframe_list){
-	data.frame(id = integer(0), nobs = integer(0))
+	df <- data.frame(id = integer(0), nobs = integer(0))
+	#add a new row
+	#df = rbind(df,data.frame(id = 2, nobs = 334))
+	#df = rbind(df,data.frame(id = 8, nobs = 567))
+
+	for(i in seq_along(dataframe_list)){
+		print(count_complete_cases(dataframe_list[[i]]))
+	}
+
 }
 
 
-file_list 	<- get_files("~/code/r/r-experiments/specdata",8)
+file_list 	<- get_files("~/code/r/r-experiments/specdata",30:25)
 data_frame 	<- get_dataframe_from_files(file_list)
-average 	<- calculate_mean(data_frame,'nitrate')
-complete 	<- list_complete_cases() #complete_cases_count(list_complete_cases)
+data_frame_list <- get_dataframe_list_from_files(file_list)
 
-sprintf("Average : %f",average)
-print("Complete Cases :")
-print(complete)
+#things we need
+average 	<- calculate_mean(data_frame,'nitrate')
+list_complete_cases(data_frame_list) 
+
+#printf("Average : %f",average)
+#print("Complete Cases :")
+#print(count)
 
 
 
