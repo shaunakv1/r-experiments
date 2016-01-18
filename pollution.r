@@ -59,20 +59,40 @@ list_complete_cases <- function(dataframe_list){
 	df
 }
 
+# http://www.inside-r.org/r-doc/stats/cor
+# takes a complete threshold , and calculates covarience for
+# all dataframes that pass this threshold
+# returns the correlation as a vector
+corr <- function(dataframes,threshold=0) {
+	cor_vector <- numeric(0)
+	
+	for(i in seq_along(dataframes)){
+		df <- dataframes[[i]]
+		if (count_complete_cases(df) > threshold){
+			cor_vector <- c(   cor_vector, cor( df[,'sulfate'], df[,'nitrate'], use = "complete.obs" )   )
+		}
+	}
+
+	cor_vector	
+}
 
 #data we need to calculate stuff we need
-file_list 	<- get_files("~/code/r/r-experiments/specdata",c(2, 4, 8, 10, 12))
+file_list 	<- get_files("~/code/r/r-experiments/specdata",1:332)
 data_frame 	<- merged_data_frame(file_list)
 data_frame_list <- get_dataframe_list_from_files(file_list)
 
 #things we need
-average 	<- calculate_mean(data_frame,'sulfate')
-complete_cases <- list_complete_cases(data_frame_list) 
+#average 	<- calculate_mean(data_frame,'sulfate')
+#complete_cases <- list_complete_cases(data_frame_list) 
 
 #print out the results
-sprintf("Average : %f",average)
-print("Complete Cases :")
-print(complete_cases)
+#sprintf("Average : %f",average)
+#print("Complete Cases :")
+#print(complete_cases)
+
+#cr <- corr(data_frame_list)
+#print(head(cr))
+#print(summary(cr))
 
 
 
