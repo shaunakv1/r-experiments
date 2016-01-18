@@ -28,12 +28,24 @@ calculate_mean <- function(dataframe, column){
 	m <- mean(dataframe[,column], na.rm = TRUE)
 }
 
+#this function finds the number of complete observations (none of the columns is NA) in the dataframe and returns the 
+#result as a new dataframe of the form:
+# 	 id nobs
+# 1  2 1041
+# 2  4  474
+
+complete_cases <- function(dataframe){
+	
+}
 
 file_list 	<- get_files("~/code/r/r-experiments/specdata",70:72)
 data_frame 	<- get_dataframe_from_files(file_list)
 average 	<- calculate_mean(data_frame,'nitrate')
+complete 	<- complete_cases(data_frame)
 
-print(average)
+sprintf("Average : %f",average)
+print("Complete Cases :")
+print(complete)
 
 
 
