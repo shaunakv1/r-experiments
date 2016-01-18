@@ -28,9 +28,10 @@ calculate_mean <- function(dataframe, column){
 	m <- mean(dataframe[,column], na.rm = TRUE)
 }
 
-file_list <- get_files("~/code/r/r-experiments/specdata",1:4)
-data_frame <- get_dataframe_from_files(file_list)
-average <- calculate_mean(data_frame,'sulfate')
+
+file_list 	<- get_files("~/code/r/r-experiments/specdata",70:72)
+data_frame 	<- get_dataframe_from_files(file_list)
+average 	<- calculate_mean(data_frame,'nitrate')
 
 print(average)
 
