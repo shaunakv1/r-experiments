@@ -13,10 +13,14 @@ get_files <- function(directory,id = 1:332) {
 }
 
 # function returns a merged data-frame given a R file list as string
-get_dataframe_from_files <- function(files) {
+get_dataframes_from_files <- function(files) {
 	df = lapply(files, read.delim)
 }
 
-file_list <- get_files("./specdata",1:33)
+file_list <- get_files("/Users/shaunak/code/r/r-experiments/specdata",1:332)
+data_frames <- get_dataframes_from_files(file_list) 
+
+
+
 
 
