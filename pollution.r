@@ -46,7 +46,7 @@ complete_cases_count <- function(dataframe){
 # 1  2 1041
 # 2  4  474
 list_complete_cases <- function(dataframe_list){
-	data.frame()
+	data.frame(id = integer(0), nobs = integer(0))
 }
 
 
