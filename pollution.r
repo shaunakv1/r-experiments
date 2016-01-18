@@ -1,5 +1,12 @@
-# function returns a file list as string given a directory
-# and ID of files to fetch
+####
+#
+#Library of utility functions we will need to put together the functions needed 
+#to answer the quiz
+#
+#####
+
+
+# function returns a file list as string given a directory and ID of files to fetch
 get_files <- function(directory,id = 1:332) {
 	#fetch all files in the a directory
 	file.names <- list.files(directory, full.names = TRUE)
@@ -48,7 +55,7 @@ count_complete_cases <- function(dataframe){
 list_complete_cases <- function(dataframe_list){
 	df <- data.frame(id = integer(0), nobs = integer(0))
 	
-	#to add a new row
+	#how to add a new row?
 	#df = rbind(df,data.frame(id = 8, nobs = 567))
 
 	#get complete cases for each dataframes and add them as a row in new df
@@ -63,7 +70,7 @@ list_complete_cases <- function(dataframe_list){
 # takes a complete threshold , and calculates covarience for
 # all dataframes that pass this threshold
 # returns the correlation as a vector
-corr <- function(dataframes,threshold=0) {
+get_corelations <- function(dataframes,threshold=0) {
 	cor_vector <- numeric(0)
 	
 	for(i in seq_along(dataframes)){
@@ -76,26 +83,68 @@ corr <- function(dataframes,threshold=0) {
 	cor_vector	
 }
 
-#data we need to calculate stuff we need
-file_list 	<- get_files("~/code/r/r-experiments/specdata",1:332)
-data_frame 	<- merged_data_frame(file_list)
-data_frame_list <- get_dataframe_list_from_files(file_list)
+####
+#
+#Finally lets use above functions and write functions needed in quiz to answer the question
+#
+#####
 
-#things we need
-#average 	<- calculate_mean(data_frame,'sulfate')
-#complete_cases <- list_complete_cases(data_frame_list) 
+DATA_LOCATION <- "~/code/r/r-experiments/specdata"
 
-#print out the results
-#sprintf("Average : %f",average)
-#print("Complete Cases :")
-#print(complete_cases)
+#Part 1
+pollutantmean <- function(pollutant,id=1:332) {
+	file_list 	<- get_files(DATA_LOCATION,id)
+	data_frame 	<- merged_data_frame(file_list)
+	m <- calculate_mean(data_frame,pollutant)		
+}
 
-#cr <- corr(data_frame_list)
-#print(head(cr))
-#print(summary(cr))
-
-
-
-
+#Part 1 test cases
+#print(pollutantmean("sulfate", 1:10))
+#print(pollutantmean("nitrate", 70:72))
+#print(pollutantmean("nitrate", 23))
 
 
+
+
+#Part 2
+complete <- function(id) {
+	file_list 	<- get_files(DATA_LOCATION,id)
+	data_frame_list <- get_dataframe_list_from_files(file_list)
+	complete_cases <- list_complete_cases(data_frame_list) 
+}
+
+#Part 2 test cases
+#print(complete(1))
+#print(complete(c(2, 4, 8, 10, 12)))
+#print(complete(30:25))
+#print(complete(3))
+
+
+
+
+#Part 3
+corr <- function(threshold=0) {
+	file_list 	<- get_files(DATA_LOCATION)
+	data_frame_list <- get_dataframe_list_from_files(file_list)
+	cr_vector <- get_corelations(data_frame_list,threshold)
+}
+
+#Part 3 test cases
+
+# cr <- corr(150)
+# print(head(cr))
+# print(summary(cr))
+
+# cr <- corr(400)
+# print(head(cr))
+# print(summary(cr))
+
+
+# cr <- corr(5000)
+# print(summary(cr))
+# print(length(cr))
+
+
+# cr <- corr()
+# print(summary(cr))
+# print(length(cr))
