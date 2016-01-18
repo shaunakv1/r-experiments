@@ -16,7 +16,7 @@ get_files <- function(directory,id = 1:332) {
 merged_data_frame <- function(files) {
 	# First apply read.csv, then rbind
 	# This will combine all files into one dataframe
-	myfiles = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+	df = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 }
 
 # function returns a list of data-frames given a R file list as string
