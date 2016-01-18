@@ -13,12 +13,17 @@ get_files <- function(directory,id = 1:332) {
 }
 
 # function returns a merged data-frame given a R file list as string
-get_dataframes_from_files <- function(files) {
-	df = lapply(files, read.delim)
+get_dataframe_from_files <- function(files) {
+	#this will return the combined csv files as a list of dataframes
+	#df_list = lapply(files, read.delim)
+	
+	# First apply read.csv, then rbind
+	# This will combine all files into one dataframe
+	myfiles = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 }
 
-file_list <- get_files("/Users/shaunak/code/r/r-experiments/specdata",1:332)
-data_frames <- get_dataframes_from_files(file_list) 
+file_list <- get_files("/Users/shaunak/code/r/r-experiments/specdata",1:3)
+data_frame <- get_dataframe_from_files(file_list) 
 
 
 
