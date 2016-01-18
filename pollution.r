@@ -22,7 +22,7 @@ get_dataframe_from_files <- function(files) {
 	myfiles = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 }
 
-file_list <- get_files("/Users/shaunak/code/r/r-experiments/specdata",1:3)
+file_list <- get_files("~/code/r/r-experiments/specdata",1:4)
 data_frame <- get_dataframe_from_files(file_list) 
 
 
