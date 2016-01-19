@@ -100,9 +100,9 @@ pollutantmean <- function(pollutant,id=1:332) {
 
 #Part 1 test cases
 #print(pollutantmean("sulfate", 1:10))
-#print(pollutantmean("nitrate", 70:72))
-#print(pollutantmean("nitrate", 23))
-
+#print(pollutantmean("nitrate"))
+#print(pollutantmean("sulfate", 34))
+#print(pollutantmean("sulfate", 1:10))
 
 
 
@@ -118,6 +118,8 @@ complete <- function(id) {
 #print(complete(c(2, 4, 8, 10, 12)))
 #print(complete(30:25))
 #print(complete(3))
+# cc <- complete(54)
+# print(cc$nobs)
 
 
 
@@ -131,9 +133,10 @@ corr <- function(threshold=0) {
 
 #Part 3 test cases
 
-# cr <- corr(150)
-# print(head(cr))
-# print(summary(cr))
+ #cr <- corr(150)
+ #print(cr)
+ #print(head(cr))
+#print(summary(cr))
 
 # cr <- corr(400)
 # print(head(cr))
@@ -148,3 +151,16 @@ corr <- function(threshold=0) {
 # cr <- corr()
 # print(summary(cr))
 # print(length(cr))
+
+# cr <- corr(129)                
+# cr <- sort(cr)                
+# n <- length(cr)                
+# set.seed(197)                
+# out <- c(n, round(cr[sample(n, 5)], 4))
+# print(out)
+
+cr <- corr(2000)                
+n <- length(cr)                
+cr <- corr(1000)                
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
